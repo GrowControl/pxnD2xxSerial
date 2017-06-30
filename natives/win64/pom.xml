@@ -1,0 +1,79 @@
+<!-- Generated on: June 8, 2017 06:01 UTC -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<name>pxnD2xxSerial-win64</name>
+	<artifactId>d2xxserial-win64</artifactId>
+	<groupId>com.poixson</groupId>
+	<version>1.0.0</version>
+	<packaging>dll</packaging>
+	<url>http://poixson.com</url>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<native-maven-plugin-version>1.0-alpha-8</native-maven-plugin-version>
+
+	</properties>
+<!--
+	<parent>
+		<groupId>com.poixson</groupId>
+		<artifactId>d2xxserial-parent</artifactId>
+		<version>${project.version}</version>
+	</parent>
+-->
+	<profiles>
+		<profile>
+			<id>win64</id>
+			<activation>
+				<os>
+<!-- is this right? -->
+					<family>windows</family>
+					<name>windows</name>
+					<arch>amd64</arch>
+				</os>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>native-maven-plugin</artifactId>
+						<version>${native-maven-plugin-version}</version>
+						<extensions>true</extensions>
+						<configuration>
+<!--
+							<javahClassNames>
+								<javahClassName>com.poixson.d2xxserial.d2xx.Natives</javahClassName>
+							</javahClassNames>
+-->
+							<javahOS>win64</javahOS>
+							<compilerStartOptions>
+								<compilerStartOption> /MD /W4 -O</compilerStartOption>
+								<compilerStartOption>-D_WIN32_WINNT=0x0500 </compilerStartOption>
+
+								<compilerStartOption>-DHAVE_TERMIOS_H</compilerStartOption>
+								<compilerStartOption>-DHAVE_STDINT_H</compilerStartOption>
+								<compilerStartOption>-DHAVE_SYS_FCNTL_H</compilerStartOption>
+								<compilerStartOption>-DHAVE_SYS_SIGNAL_H</compilerStartOption>
+								<compilerStartOption>-shared</compilerStartOption>
+								<compilerStartOption>-fPIC</compilerStartOption>
+							</compilerStartOptions>
+							<linkerStartOptions>
+								<linkerStartOption>-shared</linkerStartOption>
+							</linkerStartOptions>
+							<sources>
+								<source>
+									<directory>${project.basedir}/../</directory>
+									<fileNames>
+										<fileName>NativeCommon.c</fileName>
+									</fileNames>
+								</source>
+							</sources>
+						</configuration>
+					</plugin> 
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>
